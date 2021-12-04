@@ -7,15 +7,11 @@ exports.createChatroom = async (req, res) => {
   const nameRegex = /[A-Za-z\s]+$/;
 
   if (!nameRegex.test(name)) throw "Chatroom can contain only alphabets";
-
   const chatroomExists = await Chatroom.findOne({ name });
-
   if (chatroomExists) throw "Chatroom with that name already exists";
-
   const chatroom = new Chatroom({
     name,
   });
-
   await chatroom.save();
 
   res.json({
@@ -24,7 +20,8 @@ exports.createChatroom = async (req, res) => {
 };
 
 exports.getAllChatrooms = async (req, res) => {
+  console.log("Inside");
   const chatrooms = await Chatroom.find({});
-
+  console.log("chatrooms", chatrooms);
   res.json(chatrooms);
 };
